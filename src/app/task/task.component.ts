@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { type UserTask } from './task.model';
+import { UserTask } from '../user/user.model';
 @Component({
   selector: 'app-task',
   standalone: true,
