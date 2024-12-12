@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { UserTask } from '../../user/user.model';
 import { CardComponent } from "../../shared/card/card.component";
 import { DatePipe } from '@angular/common';
+import { TasksService } from '../tasks.service';
 @Component({
   selector: 'app-task',
   standalone: true,
@@ -10,11 +11,11 @@ import { DatePipe } from '@angular/common';
   styleUrl: './task.component.css'
 })
 export class TaskComponent {
-  @Output() selectTask=new EventEmitter<string>()
-  @Input({required:true}) user?:UserTask;
+  @Input({required:true}) user!:UserTask;
+  private tasksService=inject(TasksService)
 
   onComplete(){
-    return this.selectTask.emit(this.user?.id)
+    this.tasksService.removeTask(this.user.id)
   }
 
 }
