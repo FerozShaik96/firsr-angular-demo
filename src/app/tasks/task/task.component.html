@@ -1,9 +1,10 @@
-<article>
+<app-card>
+    <article>
         <h2>{{user?.title}}</h2>
-        <time>{{user?.dueDate}}</time>
+        <time>{{user?.dueDate | date:"fullDate"}}</time>
         <p>{{user?.summary}}</p>
         <p class="actions">
             <button (click)="onComplete()">Complete</button>
         </p>
-    
-</article>
+    </article>
+</app-card>

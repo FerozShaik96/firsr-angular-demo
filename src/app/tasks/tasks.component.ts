@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TaskComponent } from '../task/task.component';
-import { dummyTasks } from './dummyTask.component';
- import { User } from '../user/user.model';
+import { TaskComponent } from './task/task.component';
+import { TasksService } from './tasks.service';
+import { User } from '../user/user.model';
 import { NewTaskComponent } from './new-task/new-task.component';
+import { TaskData } from '../user/user.model';
 
  @Component({
   selector: 'app-tasks',
@@ -12,19 +13,20 @@ import { NewTaskComponent } from './new-task/new-task.component';
   styleUrl: './tasks.component.css'
 })
 export class TasksComponent {
-  userTask=dummyTasks
   @Input({required:true}) user!:User 
   isAddingTask:boolean=false
+  // private tasksService:TasksService
+  // constructor( tasksService:TasksService){
+  //   this.tasksService=tasksService;
+  // }
+  constructor(private tasksService:TasksService){}
   get getTask(){
-    return this.userTask.filter((data)=>data.userId===this.user?.id)
-  }
-   completeTask(task:string){
-    return this.userTask= this.userTask.filter((data)=>data.id!==task)
+    return this.tasksService.getUserTask(this.user.id)
   }
   onStartAddTask(){
     this.isAddingTask=true
   }
-  onCancelAddTask(){
+  onCloseAddTask(){
     this.isAddingTask=false
   }
 }
